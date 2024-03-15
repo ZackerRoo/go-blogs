@@ -1,0 +1,9 @@
+# 启动端口号
+server:
+  port: 8001
+
+# MySQL数据源配置
+mysql:
+  username: root      # 修改为自己数据库的用户名
+  password: 123456    # 修改为自己数据库的密码
+  url: tcp(localhost:3306)/blog_db?charset=utf8&parseTime=True&loc=Local

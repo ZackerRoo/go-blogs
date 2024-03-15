@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>博客 | 后台管理</title>
+
+  <!-- Google Font: Source Sans Pro -->
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback">
+  <!-- Font Awesome Icons -->
+  <link rel="stylesheet" href="/assets/backend/plugins/fontawesome-free/css/all.min.css">
+  <!-- Theme style -->
+  <link rel="stylesheet" href="/assets/backend/css/adminlte.min.css">
+
+  <link rel="stylesheet" href="/assets/backend/css/style.css">
+
+  <link rel="stylesheet" href="/assets/backend/editormd/css/editormd.min.css">
+
+  <link rel="stylesheet" href="/assets/backend/plugins/bootstrap-taginput/tagsinput.css">
+
+  <link href="/assets/backend/filepond/filepond.css" rel="stylesheet">
+
+  <!-- Add plugin styles -->
+  <link href="https://unpkg.com/filepond-plugin-image-preview/dist/filepond-plugin-image-preview.css" rel="stylesheet">
+
+
+</head>
+<body class="hold-transition sidebar-mini layout-fixed">
+<div class="wrapper">
+
+  {{include "layouts/header"}}
+
+  {{include "layouts/sidebar"}}
+
+  {{template "content" .}}
+
+  {{include "layouts/footer"}}
+
+
+  <!-- Control Sidebar -->
+  <aside class="control-sidebar control-sidebar-dark">
+    <!-- Control sidebar content goes here -->
+  </aside>
+  <!-- /.control-sidebar -->
+</div>
+<!-- ./wrapper -->
+
+<!-- jQuery -->
+<script src="/assets/backend/plugins/jquery/jquery.min.js"></script>
+<!-- Bootstrap 4 -->
+<script src="/assets/backend/plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
+<!-- AdminLTE App -->
+<script src="/assets/backend/js/adminlte.min.js"></script>
+<script src="/assets/backend/plugins/bootstrap-taginput/tagsinput.js"></script>
+
+
+            

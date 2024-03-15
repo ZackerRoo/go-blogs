@@ -1,0 +1,85 @@
+
+{{ define "content" }}
+<div class="content-wrapper">
+
+  <!-- Content Header (Page header) -->
+  <div class="content-header">
+    <div class="container-fluid">
+
+      <div class="row">
+        <div class="col-12">
+          <div class="card">
+            <div class="card-header">
+              <h3 class="card-title">博客列表</h3>
+              <div class="card-tools">
+                <div class="input-group input-group-sm" style="width: 150px;">
+                  <input type="text" name="table_search" class="form-control float-right" placeholder="搜索">
+
+                  <div class="input-group-append">
+                    <button type="submit" class="btn btn-default">
+                      <i class="fas fa-search"></i>
+                    </button>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <!-- /.card-header -->
+            <div class="card-body table-responsive p-0">
+              <table class="table table-hover text-nowrap">
+                <thead>
+                  <tr>
+                    <th>ID</th>
+                    <th>标题</th>
+                    <th>浏览数</th>
+                    <th>发布日期</th>
+                    <th>状态</th>
+                    <th>操作</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {{range $i, $p := .plist}}
+                  <tr>
+                    <td>{{$p.ID}}</td>
+                    <td>{{$p.Title}}</td>
+                    <td>{{$p.Views}}</td>
+                    <td>{{$p.CreatedAt}}</td>
+                    <td>{{$p.Status}}</td>
+
+                    <td>
+                      <a type="button" href="/admin/post/view?id={{$p.ID}}" class="btn  btn-xs btn-primary">修改</a>
+                      <a type="button" href="/admin/post/del?id={{$p.ID}}" class="btn   btn-xs btn-danger">删除</a>
+                    </td>
+          
+                  </tr>
+                  {{end}}
+                  
+                  
+                </tbody>
+              </table>
+            </div>
+            <!-- /.card-body -->
+            <div class="card-footer clearfix">
+              <ul class="pagination pagination-sm m-0 float-right">
+                <li class="page-item"><a class="page-link" href="#">«</a></li>
+                <li class="page-item"><a class="page-link" href="#">1</a></li>
+                <li class="page-item"><a class="page-link" href="#">2</a></li>
+                <li class="page-item"><a class="page-link" href="#">3</a></li>
+                <li class="page-item"><a class="page-link" href="#">»</a></li>
+              </ul>
+            </div>
+
+          </div>
+          <!-- /.card -->
+        </div>
+      </div>
+
+
+    </div><!-- /.container-fluid -->
+  </div>
+  <!-- /.content-header -->
+
+
+</div>
+{{end}}
+
+

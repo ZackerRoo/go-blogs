@@ -1,0 +1,179 @@
+{{ define "content"}}
+<div class="content-wrapper">
+
+  <!-- Content Header (Page header) -->
+  <div class="content-header">
+    <div class="container-fluid">
+      <div class="card card-primary">
+        <div class="card-header">
+          <h3 class="card-title">添加博客</h3>
+        </div>
+
+        <div class="card-body">
+
+          <!-- /.card-header -->
+          <!-- form start -->
+          <form id="uploadForm" action="/admin/post/save" method="post">
+
+            <input type="hidden" name="id" value="{{.post.ID}}" />
+            <input type="hidden" id="thumbnail" name="thumbnail" value="{{.post.Thumbnail}}">
+            <input type="hidden" id="tags2" name="tags" value="{{.post.Tags}}">
+            <div class="row">
+
+              <div class="col-9">
+                <div class="form-group">
+                  <label for="exampleInputEmail1">标题</label>
+                  <input type="text" class="form-control" name="title" value="{{.post.Title}}" placeholder="请输入标题">
+                </div>
+
+                <div class="form-group" id="post_content">
+                  <textarea class="form-control" placeholder="输入内容 ..." name="content">{{.post.Content}}</textarea>
+                </div>
+
+                <script src="/assets/backend/editormd/js/jquery.min.js"></script>
+                <script src="/assets/backend/editormd/js/editormd.min.js"></script>
+
+                <script>
+                  var testEditor;
+                  $(function () {
+                    testEditor = editormd("post_content", {
+                      width: "100%",
+                      height: 640,
+                      syncScrolling: "single",
+                      path: "../../assets/backend/editormd/lib/"
+                    });
+                  });
+                </script>
+
+              </div>
+
+              <div class="col-3">
+
+                <div class="form-group">
+                  <div class="box">
+                    <label>预览图</label>
+                    <div class="box-body">
+                      <div class="thumbnail-box">
+                        <input type="file" id="upload_btn" class="filepond" name="file" accept="image/*" title="点击添加图片">
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+                <div class="form-group">
+                  <label>频道</label>
+                  <select name="channelId" class="form-control" data-select="{{.post.ChannelId}}">
+                    {{range $i, $c := .clist}}
+                    <option value="{{$c.Id}}">{{$c.Title}}</option>
+                    {{end}}
+                  </select>
+                </div>
+
+
+                <div class="form-group">
+                  <label>标签</label><br>
+                  <input type="text" id="tags" data-role="tagsinput" class="form-control" value="{{.post.Tags}}"
+                    placeholder="添加相关标签，逗号分隔 (最多4个)" onchange="tagsChange()">
+                </div>
+
+              </div>
+
+            </div>
+
+            <!-- /.card-body -->
+
+            <div class="card-footer">
+              <button type="submit" class="btn btn-primary">提交</button>
+            </div>
+          </form>
+
+          <script src="https://unpkg.com/filepond-plugin-image-preview/dist/filepond-plugin-image-preview.js"></script>
+          <script src="https://unpkg.com/filepond-plugin-image-resize/dist/filepond-plugin-image-resize.js"></script>
+          <script
+            src="https://unpkg.com/filepond-plugin-image-transform/dist/filepond-plugin-image-transform.js"></script>
+
+          <!-- add the Image Crop plugin script -->
+          <script src="https://unpkg.com/filepond-plugin-image-crop/dist/filepond-plugin-image-crop.js"></script>
+          <script src="https://unpkg.com/filepond/dist/filepond.js"></script>
+
+          <script>
+            // 设置标签
+            function tagsChange() {
+              document.getElementById("tags2").value = $("#tags").val()
+            }
+
+
+            FilePond.registerPlugin(
+              // register the Image Crop plugin with FilePond
+              FilePondPluginImageCrop,
+              FilePondPluginImagePreview,
+              FilePondPluginImageResize,
+              FilePondPluginImageTransform
+            );
+
+            const inputElement = document.querySelector('input[type="file"]');
+            const pond = FilePond.create(inputElement, {
+              // add the Image Crop default aspect ratio
+              imageCropAspectRatio: 1,
+              imageResizeTargetWidth: 256,
+              imageResizeMode: 'contain',
+
+              imageTransformVariants: {
+                thumb_medium_: transforms => {
+                  transforms.resize.size.width = 512;
+                  // this will be a landscape crop
+                  transforms.crop.aspectRatio = .8;
+                  return transforms;
+                },
+                thumb_small_: transforms => {
+                  transforms.resize.size.width = 64;
+                  return transforms;
+                }
+              },
+              onaddfile: (err, fileItem) => {
+                console.log(err, fileItem.getMetadata('resize'));
+              },
+
+
+
+            });
+
+
+            FilePond.setOptions({
+              server: {
+                url: 'http://localhost:8001',
+                process: {
+                  url: '/admin/post/upload',
+                  method: 'POST',
+                  withCredentials: false,
+                  headers: {},
+                  timeout: 7000,
+                  onload: function (response) {
+                    console.log(response)
+                    document.getElementById("thumbnail").value = response
+                  },
+                  onerror: null,
+                  ondata: null,
+                },
+              },
+            });
+
+          </script>
+
+
+        </div>
+        <!-- /.card -->
+      </div>
+    </div>
+
+    <!-- /.card -->
+  </div>
+</div>
+</div><!-- /.container-fluid -->
+</div>
+<!-- /.content-header -->
+</div>
+
+
+
+{{end}}

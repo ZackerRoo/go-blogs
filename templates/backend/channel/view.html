@@ -1,0 +1,68 @@
+
+{{ define "content"}}
+<div class="content-wrapper">
+
+  <!-- Content Header (Page header) -->
+  <div class="content-header">
+    <div class="container-fluid">
+
+      <div class="row">
+        <div class="col-12">
+          <div class="card card-primary">
+            <div class="card-header">
+              <h3 class="card-title">添加频道</h3>
+            </div>
+            <!-- /.card-header -->
+            <!-- form start -->
+            <form action="/admin/channel/save" method="post">
+              <input type="hidden" name="id" value="{{.channel.Id}}">
+              <div class="card-body">
+                <div class="form-group">
+                  <label for="exampleInputEmail1">标题</label>
+                  <input type="text" class="form-control" name="title" value="{{.channel.Title}}" placeholder="请输入标题">
+                </div>
+                <div class="form-group">
+                  <label>Slug</label>
+                  <input type="text" class="form-control" name="slug" value="{{.channel.Slug}}"  placeholder="请输入slug">
+                </div>
+
+
+                <div class="form-group">
+                  <label>权重</label>
+                  <input type="text" class="form-control" name="weight" value="{{.channel.Weight}}"  placeholder="请输入权重">
+                </div>
+
+                <div class="form-group">
+                  <label>状态</label>
+                  <select name="status" class="form-control" data-select="{{.channel.Status}}">
+                    <option value="1">显示</option>
+                    <option value="0">隐藏</option>
+                  </select>
+                </div>
+
+                <div class="form-group">
+                  <label>内容</label>
+                  <textarea class="form-control" rows="3" placeholder="输入内容 ..." name="content">{{.channel.Content}}</textarea>
+                </div>
+              
+        
+              </div>
+              <!-- /.card-body -->
+
+              <div class="card-footer">
+                <button type="submit" class="btn btn-primary">提交</button>
+              </div>
+            </form>
+          </div>
+          <!-- /.card -->
+        </div>
+      </div>
+
+
+    </div><!-- /.container-fluid -->
+  </div>
+  <!-- /.content-header -->
+
+</div>
+{{end}}
+
